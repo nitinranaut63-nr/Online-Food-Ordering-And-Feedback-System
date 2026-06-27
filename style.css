@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+    background: #0f172a;
+    color: #e5e7eb;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Primary Button */
+.btn-primary-custom {
+    background: #ff6b6b;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    color: white;
+    transition: 0.3s;
+}
+
+.btn-primary-custom:hover {
+    background: #ff4757;
+    transform: scale(1.02);
+}
+
+/* Card Style */
+.card-custom {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    padding: 20px;
+}
+
+/* Modern Category Cards */
+.category-modern {
+    background: #1f2937;
+    padding: 35px 20px;
+    border-radius: 20px;
+    transition: 0.4s;
+    cursor: pointer;
+    color: white;
+    font-size: 45px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.category-modern:hover {
+    transform: translateY(-10px);
+    background: #374151;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.category-modern h5 {
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.category-modern p {
+    color: #9ca3af;
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+
+
+/* ===========================
+   BRIGHT FOOD-THEME BUTTONS
+   =========================== */
+.btn-explore{
+    background:white !important;
+    color:black !important;
+
+    padding:15px 35px;
+    border-radius:12px;
+
+    font-size:18px;
+    font-weight:700;
+
+    text-decoration:none;
+
+    display:inline-block;
+}
+
+.btn-explore:hover{
+    background:#f3f4f6 !important;
+    color:black !important;
+}
+
+/* Login Button */
+.btn-login{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#22c55e;
+    color:white !important;
+
+    font-size:18px;
+    font-weight:700;
+
+    padding:14px 35px;
+    margin:8px;
+
+    border:none;
+    border-radius:14px;
+
+    text-decoration:none !important;
+
+    transition:all 0.3s ease;
+}
+
+.btn-login:hover{
+    background:#16a34a;
+    color:white !important;
+}
+
+/* Register Button */
+.btn-register{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#3b82f6;
+    color:white !important;
+
+    font-size:18px;
+    font-weight:700;
+
+    padding:14px 35px;
+    margin:8px;
+
+    border:none;
+    border-radius:14px;
+
+    text-decoration:none !important;
+
+    transition:all 0.3s ease;
+}
+
+.btn-register:hover{
+    background:#2563eb;
+    color:white !important;
+}

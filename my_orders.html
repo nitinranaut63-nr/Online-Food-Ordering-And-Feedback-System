@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+    background:#0b1120;
+    font-family:'Poppins',sans-serif;
+    color:white;
+}
+
+/* PAGE TITLE */
+.page-title{
+    font-size:38px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.page-subtitle{
+    color:#94a3b8;
+    margin-bottom:40px;
+}
+
+/* ORDER CARD */
+.order-card{
+    background:#111827;
+    border-radius:24px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.05);
+    transition:0.4s;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+}
+
+.order-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 20px 40px rgba(0,0,0,0.35);
+}
+
+/* TOP BAR */
+.order-top{
+    padding:25px;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+/* ORDER ID */
+.order-id{
+    font-size:22px;
+    font-weight:600;
+}
+
+/* ORDER DATE */
+.order-date{
+    color:#94a3b8;
+    font-size:14px;
+}
+
+/* PRICE */
+.order-price{
+    color:#22c55e;
+    font-size:28px;
+    font-weight:700;
+}
+
+/* STATUS BADGES */
+.status-badge{
+    padding:8px 18px;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.pending{ background:#facc15; color:black; }
+.preparing{ background:#38bdf8; color:black; }
+.delivered{ background:#22c55e; color:white; }
+.cancelled{ background:#ef4444; color:white; }
+
+/* ORDER BODY */
+.order-body{
+    padding:25px;
+}
+
+.info-box{
+    background:#1e293b;
+    border-radius:18px;
+    padding:18px;
+    text-align:center;
+    height:100%;
+}
+
+/* BUTTONS */
+.btn-custom{
+    height:48px;
+    border-radius:14px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* EMPTY */
+.empty-box{
+    background:#111827;
+    padding:60px;
+    border-radius:25px;
+    text-align:center;
+}
+</style>
+
+<div class="container py-5">
+
+<div class="text-center mb-5">
+    <h1 class="page-title">🧾 My Orders</h1>
+    <p class="page-subtitle">Track your orders and manage your delicious meals</p>
+</div>
+
+{% if orders %}
+
+{% for order in orders %}
+
+<div class="order-card mb-4">
+
+    <!-- TOP -->
+    <div class="order-top">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-6">
+
+                <div class="order-id">
+                    Order #{{ order.id }}
+                </div>
+
+                <div class="order-date">
+                    Successfully placed order
+                </div>
+
+                <!-- STATUS + CANCEL -->
+                <p class="mb-2 mt-2">
+
+                    Status :
+
+                    {% if order.status == 'Pending' %}
+                        <span class="badge bg-warning text-dark">Pending</span>
+
+                    {% elif order.status == 'Preparing' %}
+                        <span class="badge bg-info text-dark">Preparing</span>
+
+                    {% elif order.status == 'Delivered' %}
+                        <span class="badge bg-success">Delivered</span>
+
+                    {% elif order.status == 'Cancelled' %}
+                        <span class="badge bg-danger">Cancelled</span>
+                    {% endif %}
+
+                </p>
+
+                {% if order.status != 'Cancelled' and order.status != 'Delivered' %}
+                <a href="/cancel_order/{{ order.id }}"
+                   class="btn btn-danger btn-sm">
+                    Cancel Order
+                </a>
+                {% endif %}
+
+            </div>
+
+            <div class="col-md-3 mt-3 mt-md-0">
+
+                {% if order.status == 'Pending' %}
+                    <span class="status-badge pending">⏳ Pending</span>
+
+                {% elif order.status == 'Preparing' %}
+                    <span class="status-badge preparing">👨‍🍳 Preparing</span>
+
+                {% elif order.status == 'Delivered' %}
+                    <span class="status-badge delivered">✅ Delivered</span>
+
+                {% elif order.status == 'Cancelled' %}
+                    <span class="status-badge cancelled">❌ Cancelled</span>
+                {% endif %}
+
+            </div>
+
+            <div class="col-md-3 text-md-end mt-3 mt-md-0">
+                <div class="order-price">
+                    ₹{{ order.total_amount }}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- BODY -->
+    <div class="order-body">
+
+        <div class="row g-3 mb-4">
+
+            <div class="col-md-4">
+                <div class="info-box">
+                    <div>Payment Method</div>
+                    <div>💳 Online</div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="info-box">
+                    <div>Delivery Time</div>
+                    <div>30 - 40 Min</div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="info-box">
+                    <div>Delivery Partner</div>
+                    <div>🚴 FastExpress</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="d-flex flex-wrap gap-3">
+
+            <a href="/order_details/{{ order.id }}"
+               class="btn btn-outline-light btn-custom flex-fill">
+                🔍 View Details
+            </a>
+
+            <a href="/track_order/{{ order.id }}"
+               class="btn btn-warning btn-custom flex-fill">
+                🚚 Track Order
+            </a>
+
+            {% if order.status == 'Delivered' %}
+            <a href="/feedback/{{ order.id }}"
+               class="btn btn-success btn-custom flex-fill">
+                ⭐ Give Feedback
+            </a>
+            {% else %}
+            <button class="btn btn-secondary btn-custom flex-fill" disabled>
+                ⭐ Feedback After Delivery
+            </button>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<div class="empty-box">
+    🍔 <h2>No Orders Yet</h2>
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

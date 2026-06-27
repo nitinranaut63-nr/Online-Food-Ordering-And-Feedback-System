@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">Dashboard</h2>
+            <p class="text-muted mb-0">Overview of your system performance</p>
+        </div>
+        <a href="/admin/logout" class="btn btn-outline-danger">Logout</a>
+    </div>
+
+    <!-- STATS -->
+    <div class="row g-4 mb-4">
+
+        <!-- Orders -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-lg p-4 text-white"
+                 style="background: linear-gradient(135deg, #667eea, #764ba2); border-radius:15px;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>Total Orders</h6>
+                        <h2 class="fw-bold">{{ orders_count }}</h2>
+                    </div>
+                    <i class="fa fa-shopping-cart fa-2x"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-lg p-4 text-white"
+                 style="background: linear-gradient(135deg, #11998e, #38ef7d); border-radius:15px;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>Total Users</h6>
+                        <h2 class="fw-bold">{{ users_count }}</h2>
+                    </div>
+                    <i class="fa fa-users fa-2x"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Revenue -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-lg p-4 text-white"
+                 style="background: linear-gradient(135deg, #f7971e, #ffd200); border-radius:15px;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6>Total Revenue</h6>
+                        <h2 class="fw-bold">₹{{ revenue }}</h2>
+                    </div>
+                    <i class="fa fa-chart-line fa-2x"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ACTIONS + INFO -->
+    <div class="row g-4">
+
+        <!-- QUICK ACTIONS -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-4" style="border-radius:15px;">
+                <h5 class="mb-3 fw-bold">Quick Actions</h5>
+
+                <div class="d-grid gap-2">
+                    <a href="/admin/add_food" class="btn btn-dark">
+                        ➕ Add New Food Item
+                    </a>
+
+                    <a href="/admin/orders" class="btn btn-info text-white">
+                        📦 Manage Orders
+                    </a>
+
+                    <a href="/admin/users" class="btn btn-secondary">
+                        👥 View Users
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SYSTEM INFO -->
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm p-4" style="border-radius:15px;">
+                <h5 class="fw-bold mb-3">System Overview</h5>
+
+                <div class="row text-center">
+
+                    <div class="col-md-4">
+                        <h4 class="text-primary">{{ orders_count }}</h4>
+                        <p class="text-muted">Orders</p>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h4 class="text-success">{{ users_count }}</h4>
+                        <p class="text-muted">Users</p>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h4 class="text-warning">₹{{ revenue }}</h4>
+                        <p class="text-muted">Revenue</p>
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <p class="text-muted">
+                    This dashboard gives you a quick overview of your food ordering system.
+                    You can manage orders, users, and menu items easily from here.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

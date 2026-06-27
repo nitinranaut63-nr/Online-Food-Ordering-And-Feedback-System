@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+body{
+    background:#0b1120;
+    color:white;
+}
+
+.success-container{
+    min-height:70vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.success-card{
+    background:linear-gradient(145deg,#111827,#1e293b);
+    border-radius:30px;
+    padding:50px;
+    width:100%;
+    max-width:700px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,0.4);
+    border:1px solid rgba(255,255,255,0.05);
+}
+
+.success-icon{
+    font-size:90px;
+    animation:pop 1s ease;
+}
+
+@keyframes pop{
+    0%{
+        transform:scale(0);
+    }
+    100%{
+        transform:scale(1);
+    }
+}
+
+.success-title{
+    color:#22c55e;
+    font-size:42px;
+    font-weight:700;
+    margin-top:15px;
+}
+
+.order-id{
+    background:#0f172a;
+    display:inline-block;
+    padding:12px 25px;
+    border-radius:15px;
+    margin-top:20px;
+    font-size:22px;
+    font-weight:600;
+    color:#f59e0b;
+}
+
+.success-text{
+    color:#cbd5e1;
+    margin-top:20px;
+    font-size:17px;
+}
+
+.info-box{
+    background:#0f172a;
+    border-radius:18px;
+    padding:20px;
+    margin-top:25px;
+}
+
+.info-box p{
+    margin:8px 0;
+    color:#94a3b8;
+}
+
+.btn-orders{
+    background:linear-gradient(135deg,#f59e0b,#f97316);
+    border:none;
+    color:white;
+    padding:14px 30px;
+    border-radius:14px;
+    font-weight:600;
+    margin-top:25px;
+    transition:.3s;
+}
+
+.btn-orders:hover{
+    transform:translateY(-3px);
+    color:white;
+}
+
+.btn-track{
+    background:#22c55e;
+    border:none;
+    color:white;
+    padding:14px 30px;
+    border-radius:14px;
+    font-weight:600;
+    margin-top:25px;
+    margin-left:10px;
+    transition:.3s;
+}
+
+.btn-track:hover{
+    transform:translateY(-3px);
+    color:white;
+}
+
+</style>
+
+<div class="container success-container">
+
+    <div class="success-card">
+
+        <div class="success-icon">
+            🎉
+        </div>
+
+        <h1 class="success-title">
+            Payment Successful
+        </h1>
+
+        <div class="order-id">
+            Order #{{ order_id }}
+        </div>
+
+        <p class="success-text">
+            Your order has been placed successfully and is now being processed by our kitchen.
+        </p>
+
+        <div class="info-box">
+
+            <p> Payment Received</p>
+
+            <p>👨‍🍳 Restaurant Preparing Your Food</p>
+
+            <p>🚚 Estimated Delivery: 30 - 40 Minutes</p>
+
+            <p>📱 You can track your order in real-time</p>
+
+        </div>
+
+        <a href="/my_orders"
+           class="btn btn-orders">
+
+            📦 My Orders
+
+        </a>
+
+        <a href="/track_order/{{ order_id }}"
+           class="btn btn-track">
+
+            🚚 Track Order
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

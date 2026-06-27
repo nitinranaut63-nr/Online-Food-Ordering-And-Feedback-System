@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .page-bg {
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        padding: 40px 0;
+        min-height: 100vh;
+    }
+
+    .form-card {
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 35px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        color: #fff;
+    }
+
+    .form-label {
+        font-size: 14px;
+        opacity: 0.8;
+    }
+
+    .form-control, .form-select {
+        background: rgba(255,255,255,0.1);
+        border: none;
+        color: #fff;
+        border-radius: 10px;
+    }
+
+    .form-control::placeholder {
+        color: #bbb;
+    }
+
+    .form-control:focus, .form-select:focus {
+        background: rgba(255,255,255,0.15);
+        box-shadow: 0 0 10px #00c6ff;
+    }
+
+    .input-group-text {
+        background: rgba(255,255,255,0.1);
+        border: none;
+        color: #ccc;
+    }
+
+    .btn-submit {
+        background: linear-gradient(135deg, #00c6ff, #0072ff);
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        padding: 10px;
+        transition: 0.3s;
+    }
+
+    .btn-submit:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px #00c6ff;
+    }
+
+    .preview-img {
+        width: 100%;
+        max-height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-top: 10px;
+        display: none;
+    }
+
+    .page-title {
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .page-subtitle {
+        color: #ccc;
+        font-size: 14px;
+    }
+</style>
+
+<div class="page-bg">
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="text-center mb-4">
+        <h2 class="page-title">Add Food Item</h2>
+        <p class="page-subtitle">Create and manage your menu items</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+
+            <div class="form-card">
+
+                <form method="POST">
+
+                    <!-- Food Name -->
+                    <div class="mb-3">
+                        <label class="form-label">Food Name</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa fa-utensils"></i></span>
+                            <input type="text" name="name" class="form-control" placeholder="Enter food name" required>
+                        </div>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <select name="category" class="form-select" required>
+                            <option value="">Select category</option>
+                            {% for cat in categories %}
+                                <option value="{{ cat.id }}">{{ cat.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="mb-3">
+                        <label class="form-label">Price (₹)</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa fa-rupee-sign"></i></span>
+                            <input type="number" name="price" class="form-control" placeholder="Enter price" required>
+                        </div>
+                    </div>
+
+                    <!-- Image URL -->
+                    <div class="mb-3">
+                        <label class="form-label">Image URL</label>
+                        <input type="text" name="image" id="imageInput" class="form-control" placeholder="Enter image URL">
+                        <img id="preview" class="preview-img">
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea name="description" class="form-control" rows="3" placeholder="Write description..."></textarea>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="/admin/dashboard" class="btn btn-outline-light">
+                            Back
+                        </a>
+
+                        <button type="submit" class="btn btn-submit">
+                            Add Food
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<script>
+    const input = document.getElementById("imageInput");
+    const preview = document.getElementById("preview");
+
+    input.addEventListener("input", () => {
+        if(input.value){
+            preview.src = input.value;
+            preview.style.display = "block";
+        } else {
+            preview.style.display = "none";
+        }
+    });
+</script>
+
+{% endblock %}

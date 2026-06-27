@@ -1,0 +1,460 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    background:#0f172a;
+    font-family:'Poppins',sans-serif;
+    color:white;
+}
+
+/* MAIN CONTAINER */
+.track-container{
+    max-width:1100px;
+    margin:auto;
+}
+
+/* CARD */
+.track-card{
+    background:#111827;
+    border-radius:30px;
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,.05);
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.5);
+}
+
+/* HEADER */
+.track-header{
+    background:linear-gradient(
+        135deg,
+        #1a1a1a,
+        #111827,
+        #0f172a
+    );
+    border-bottom:1px solid rgba(255,255,255,.05);
+    padding:45px;
+}
+
+.order-title{
+    font-size:38px;
+    font-weight:500;
+}
+
+.order-subtitle{
+    opacity:.9;
+}
+
+/* STATUS */
+.live-status{
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.15);
+    padding:12px 25px;
+    border-radius:50px;
+    font-weight:600;
+}
+
+/* INFO CARD */
+.info-card{
+    background:#1e293b;
+    border-radius:20px;
+    padding:25px;
+    text-align:center;
+    transition:.3s;
+}
+
+.info-card:hover{
+    transform:translateY(-6px);
+}
+
+.info-label{
+    color:#94a3b8;
+    font-size:14px;
+}
+
+.info-value{
+    margin-top:8px;
+    font-size:24px;
+    font-weight:700;
+}
+
+/* RIDER */
+.rider-box{
+    background:#1e293b;
+    border-radius:22px;
+    padding:25px;
+    margin-top:30px;
+}
+
+.rider-avatar{
+    width:75px;
+    height:75px;
+    border-radius:50%;
+
+    background:linear-gradient(
+        135deg,
+        #27272a,
+        #18181b
+    );
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:32px;
+
+    border:1px solid rgba(255,255,255,.08);
+}
+
+/* TIMELINE */
+.timeline{
+    margin-top:50px;
+}
+
+.step{
+    position:relative;
+    padding-left:90px;
+    margin-bottom:35px;
+}
+
+.step::before{
+    content:'';
+    position:absolute;
+    left:32px;
+    top:0;
+    width:4px;
+    height:100%;
+    background:#334155;
+}
+
+.step:last-child::before{
+    display:none;
+}
+
+.step-icon{
+    position:absolute;
+    left:0;
+    top:0;
+
+    width:65px;
+    height:65px;
+    border-radius:50%;
+
+    background:linear-gradient(
+        135deg,
+        #27272a,
+        #18181b
+    );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:28px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,.35);
+}
+
+.step-card{
+    background:#1e293b;
+    border-radius:18px;
+    padding:18px;
+}
+
+.step-title{
+    font-size:18px;
+    font-weight:600;
+}
+
+.step-time{
+    color:#94a3b8;
+    margin-top:5px;
+}
+
+/* DELIVERY */
+.delivery-box{
+    margin-top:40px;
+
+    background:linear-gradient(
+        135deg,
+        #18181b,
+        #111827
+    );
+
+    border:1px solid rgba(255,255,255,.06);
+
+    border-radius:25px;
+    padding:35px;
+    text-align:center;
+}
+
+.delivery-box h2{
+    font-weight:700;
+}
+
+/* BUTTONS */
+.action-btn{
+    height:55px;
+    border-radius:14px;
+    font-weight:600;
+}
+
+.btn-order{
+    background:#27272a;
+    color:white;
+    border:none;
+}
+
+.btn-order:hover{
+    background:#3f3f46;
+    color:white;
+}
+
+</style>
+
+<div class="container py-5 track-container">
+
+<div class="track-card">
+
+    <!-- HEADER -->
+    <div class="track-header">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+            <div>
+                <h1 class="order-title">
+                    📋 Order #{{ order.id }}
+                </h1>
+
+                <p class="order-subtitle mt-2">
+                    Real-time delivery tracking
+                </p>
+            </div>
+
+            <div class="live-status">
+
+                {% if order.status == 'Pending' %}
+                    ⏳ Pending
+                {% elif order.status == 'Preparing' %}
+                    🍳 Preparing
+                {% elif order.status == 'Delivered' %}
+                    ✨ Delivered
+                {% else %}
+                    📍 In Progress
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="p-4 p-md-5">
+
+        <!-- INFO -->
+        <div class="row g-4">
+
+            <div class="col-md-4">
+
+                <div class="info-card">
+
+                    <div class="info-label">
+                        Order Amount
+                    </div>
+
+                    <div class="info-value text-success">
+                        ₹{{ order.total_amount }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="info-card">
+
+                    <div class="info-label">
+                        Delivery Time
+                    </div>
+
+                    <div class="info-value">
+                        30-40 Min
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="info-card">
+
+                    <div class="info-label">
+                        Distance
+                    </div>
+
+                    <div class="info-value">
+                        3.2 KM
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIDER -->
+        <div class="rider-box">
+
+            <div class="d-flex align-items-center">
+
+                <div class="rider-avatar">
+                    🛵
+                </div>
+
+                <div class="ms-4">
+
+                    <h4 class="mb-1">
+                        Rahul Sharma
+                    </h4>
+
+                    <span class="text-info">
+                        Delivery Partner
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- TIMELINE -->
+        <div class="timeline">
+
+            <div class="step">
+
+                <div class="step-icon">
+                    📦
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        Order Confirmed
+                    </div>
+                    <div class="step-time">
+                        Restaurant accepted your order
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="step">
+
+                <div class="step-icon">
+                    🍳
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        Preparing Food
+                    </div>
+                    <div class="step-time">
+                        Chefs are preparing your meal
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="step">
+
+                <div class="step-icon">
+                    🛵
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        Out For Delivery
+                    </div>
+                    <div class="step-time">
+                        Rider is on the way
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="step">
+
+                <div class="step-icon">
+                    ✨
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        Delivered
+                    </div>
+                    <div class="step-time">
+                        Enjoy your delicious meal
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- DELIVERY BOX -->
+        <div class="delivery-box">
+
+            <h2>
+                ✨ Your Order Is On The Way
+            </h2>
+
+            <p class="mt-3 mb-0">
+                Sit back, relax and enjoy. Fresh food is coming to your doorstep.
+            </p>
+
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="row mt-4">
+
+            <div class="col-md-6 mb-2">
+
+                <a href="/my_orders"
+                   class="btn btn-outline-light w-100 action-btn">
+
+                    ← Back To Orders
+
+                </a>
+
+            </div>
+
+            <div class="col-md-6 mb-2">
+
+                <a href="/menu"
+                   class="btn btn-order w-100 action-btn">
+
+                    🍽 Order Again
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+{% endblock %}
